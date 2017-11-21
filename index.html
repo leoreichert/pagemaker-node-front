@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demo">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Page Maker</title>
+	<link rel="icon" href="page_maker.ico">
+	    
+	<!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" type="text/css" href="framework/demo-framework.css">
+    <link rel="stylesheet" type="text/css" href="nested/nested.css" />
+
+    <script src="angular.min.js"></script>
+    <script src="angular-drag-and-drop-lists.js"></script>
+    <script src="angular-route.min.js"></script>
+	
+    <script src="framework/demo-framework.js"></script>
+    <script src="nested/nested.js"></script>
+	
+</head>
+
+<body>
+	<!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+	
+    <div class="container">
+        <div ng-view></div>
+    </div>
+
+</body>

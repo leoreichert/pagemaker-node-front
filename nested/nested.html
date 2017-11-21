@@ -1,0 +1,110 @@
+<div class="nestedDemo row">
+    <!-- Markup for lists inside the dropzone. It's inside a seperate template
+     because it will be used recursively. The dnd-list directive enables
+     to drop elements into the referenced array. The dnd-draggable directive
+     makes an element draggable and will transfer the object that was
+     assigned to it. If an element was dragged away, you have to remove
+     it from the original list yourself using the dnd-moved attribute -->
+    <script type="text/ng-template" id="list.html">
+        <ul dnd-list="list">
+            <li ng-repeat="item in list" dnd-draggable="item" dnd-effect-allowed="move" dnd-moved="list.splice($index, 1)" dnd-selected="models.selected = item"
+                ng-class="{selected: models.selected === item}" ng-include="item.type + '.html'">
+            </li>
+        </ul>
+    </script>
+
+    <!-- This template is responsible for rendering a container element. It uses
+     the above list template to render each container column -->
+    <script type="text/ng-template" id="container.html">
+        <div class="container box box-blue">
+            <h3 ng-hide="item.id == ''">{{item.id}}</h3>
+            <div class="column{{item.columns.length}}" ng-repeat="list in item.columns" ng-include="'list.html'"></div>
+            <div class="clearfix"></div>
+        </div>
+    </script>
+
+    <!-- Template for a normal list item -->
+    <script type="text/ng-template" id="label.html">
+        <div class="item">{{item.fields[0].value}}</div>
+    </script>
+
+    <script type="text/ng-template" id="text.html">
+        <input class="form-control" type="text" value="" placeholder="{{item.fields[0].value}}" />
+    </script>
+
+    <script type="text/ng-template" id="button.html">
+        <button type="button" class="btn btn-primary">{{item.fields[0].value}}</button>
+    </script>
+	
+	<script type="text/ng-template" id="img.html">
+		<a href="{{item.fields[1].value}}">
+			<img src="{{item.fields[0].value}}">
+		</a>
+    </script>
+
+    <div class="col s2">
+   		<div class="row">
+			<div class="col s12">
+				<button type="button" class="btn btn-success col s12 margem" ng-click="salvar()">Salvar</button>	
+			</div>
+			<div class="col s12">						
+				<a href="#/{{models.uid}}/vis/" class="btn btn-danger col s12 margem">Visualizar</a>
+			</div>
+
+		</div>
+        <div class="row listaelementos">
+			<div ng-repeat="item in models.templates" dnd-draggable="item" dnd-effect-allowed="copy" dnd-copied="item.id = item.id + 1" class="col s12 margem">
+				<button type="button" class="btn blue col s12">{{item.name}}</button>
+			</div>
+        </div>
+    </div>
+	
+    <div class="col s7">
+        <div class="row">
+            <div ng-repeat="(zone, list) in models.dropzones" class="col s12">
+                <div class="dropzone box box-yellow editor">
+					<form class="col s12">
+						<div class="row">	
+							<div class="input-field col s12">
+								<input id=uid value={{models.uid}} type="text" class="form-control" ng-model="models.uid" >
+								<label for=uid>UId do Beacon</label>
+							</div>	
+						</div>	
+					</form>
+                    <h3>Editor: {{zone}}</h3>
+                    <div ng-include="'list.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div class="col s3">
+        <div class="row box box-grey box-padding">
+            <h3>Selecionado</h3>
+			<div ng-if="models.selected">
+				<strong>Tipo: </strong> {{models.selected.name}} - {{models.selected.type}}<br>		
+				<form class="col s12">	
+					<div class="row">			
+						<div ng-repeat="campo in models.selected.fields" class="col s12">
+							<div class="input-field col s12">
+								<input id={{campo.description}} value={{campo.value}} type="text" class="form-control" ng-model="models.selected.fields[$index].value" >
+								<label for={{campo.description}}>{{campo.description}}</label>
+							</div>
+						</div>	
+					
+						<div ng-switch="models.selected.type">
+							<div ng-switch-casa=""></div>
+						</div>
+					</div>	
+				</form>
+			</div>
+			<div ng-if="!models.selected">
+
+			</div>
+		</div>
+
+        <div class="trashcan row">
+			<i dnd-list="[]" models.selected=null class="large material-icons">delete_sweep</i>
+        </div>
+    </div>
+</div>
