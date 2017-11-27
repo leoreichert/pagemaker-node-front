@@ -103,7 +103,7 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
             "Principal": [],
         }
     };
-	console.log($routeParams.uid);
+	console.log(window.location.hostname);
 	
 	
 	if ($routeParams.uid != undefined) {
