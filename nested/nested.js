@@ -103,8 +103,10 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
             "Principal": [],
         }
     };
-	console.log(window.location.hostname);
 	
+	$.getJSON('http://ip.jsontest.com/?callback=?', function(data) {
+		console.log(JSON.stringify(data, null, 2)[1]);
+	});
 	
 	if ($routeParams.uid != undefined) {
 		var req = {
