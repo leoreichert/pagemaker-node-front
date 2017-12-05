@@ -34,7 +34,6 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 						description: "Link",
 						value: ""
 					}]
-					}]
             },
             {
                 name: 'Container 1',
