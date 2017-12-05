@@ -1,6 +1,3 @@
-/**
- * The controller doesn't do much more than setting the initial data model
- */
 angular.module("demo").controller("NestedListsController", ['$scope', '$rootScope', '$http', '$routeParams', function ($scope, $rootScope, $http, $routeParams) {
 	modelsNull = {
         selected: null,
@@ -11,25 +8,11 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 				id: 1,
 				fields: [{
 						description: "Texto",
-						value: ""
-					}]
-            },
-            {
-                name: 'Texto',
-                type: "text",
-				id: 2,
-				fields: [{
-						description: "Texto",
-						value: ""
-					}]
-            },
-            {
-                name: 'Botão',
-                type: "button",
-				id: 3,
-                fields: [{
-						description: "Texto",
-						value: ""
+						value: "Texto Inicial"
+					},
+					{
+						description: "Tamanho",
+						value: "10"
 					}]
             },
 			{
@@ -37,11 +20,20 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
                 type: "img",
                 fields: [{
 						description: "Caminho",
-						value: "nested/teste.jpg"
+						value: ""
+					},
+					{
+						description: "Altura",
+						value: "200"
+					},
+					{
+						description: "Largura",
+						value: "200"
 					},
 					{
 						description: "Link",
-						value: "http://www.google.com"
+						value: ""
+					}]
 					}]
             },
             {
@@ -83,35 +75,16 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
                     []
                 ]
             },
-            {
-                name: 'Container 4',
-                type: "container",
-				id: 7,
-				fields: [{
-						description: "Título",
-						value: ""
-					}],
-                columns: [
-                    [],
-                    [],
-                    [],
-                    []
-                ]
-            },
         ],
         dropzones: {
             "Principal": [],
         }
     };
 	
-	$.getJSON('http://ip.jsontest.com/?callback=?', function(data) {
-		console.log(JSON.stringify(data, null, 2)[1]);
-	});
-	
 	if ($routeParams.uid != undefined) {
 		var req = {
 				method: 'GET',
-				url: 'http://localhost:8080/GetTemplate?uid=' + $routeParams.uid,
+				url: 'https://beacon-mapper.herokuapp.com/GetTemplate?uid=' + $routeParams.uid,
 			}
 			$http(req).then(function(response){
 				console.log(response.data);
@@ -138,7 +111,7 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 		var modelString = JSON.stringify($scope.models);
 		var req = {
 			method: 'POST',
-			url: 'http://localhost:8080/UpdateTemplate?uid=' + $rootScope.models.uid,
+			url: 'https://beacon-mapper.herokuapp.com/UpdateTemplate?uid=' + $rootScope.models.uid,
 			headers: {
 				'Content-Type': "application/json"
 			},
@@ -154,7 +127,7 @@ angular.module("demo").controller("NestedListsControllerVis", ['$scope', '$rootS
 	if ($routeParams.uid != undefined) {
 		var req = {
 				method: 'GET',
-				url: 'http://localhost:8080/GetTemplate?uid=' + $routeParams.uid,
+				url: 'https://beacon-mapper.herokuapp.com/GetTemplate?uid=' + $routeParams.uid,
 			}
 			$http(req).then(function(response){
 				console.log(response);
@@ -175,10 +148,34 @@ angular.module("demo").controller("NestedListsControllerVis", ['$scope', '$rootS
 	$interval(function () {
 		var req = {
 			method: 'POST',
-			url: 'http://localhost:8080/AccessBeacon?uid=' + $scope.models.uid
+			url: 'https://beacon-mapper.herokuapp.com/AccessBeacon?uid=' + $scope.models.uid
 		}
 		$http(req).then(function(){
 		}, function(){
 		});
 	}, 10000);
+}]);
+
+
+angular.module("demo").controller("NestedListsControllerTes", ['$scope', '$rootScope', '$http', '$routeParams', function ($scope, $rootScope, $http, $routeParams) {
+	if ($routeParams.uid != undefined) {
+		var req = {
+				method: 'GET',
+				url: 'https://beacon-mapper.herokuapp.com/GetTemplate?uid=' + $routeParams.uid,
+			}
+			$http(req).then(function(response){
+				console.log(response);
+				if ((response.data.resposta != 'none') && (response.data.resposta != '') && (response.data != null) && (response.data != '') && (response.data != undefined)) {
+					$scope.models = response.data;
+				} else {
+					$scope.models = angular.copy($rootScope.models);
+					$scope.models.uid = $routeParams.uid;
+				}
+			}, function(response){
+				$scope.models = angular.copy($rootScope.models);
+				$scope.models.uid = $routeParams.uid;
+			});
+	} else {
+		$scope.models = angular.copy($rootScope.models);
+	}
 }]);

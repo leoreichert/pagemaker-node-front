@@ -13,6 +13,10 @@ angular.module("demo", ["ngRoute", "dndLists"])
                 templateUrl: '/nested/vis.html',
                 controller: 'NestedListsControllerVis'
             })
+			.when('/:uid/tes/', {
+                templateUrl: '/nested/vis.html',
+                controller: 'NestedListsControllerTes'
+            })
             .otherwise({
                 redirectTo: '/'
             });
