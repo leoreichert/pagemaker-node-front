@@ -3,16 +3,18 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
         selected: null,
 		uid: "",
         templates: [{
+
                 name: 'Rótulo',
                 type: "label",
-				id: 1,
 				fields: [{
 						description: "Texto",
-						value: "Texto Inicial"
+						value: "Texto Inicial",
+						style: "default"
 					},
 					{
 						description: "Tamanho",
-						value: "10"
+						value: "10",
+						style: "default"
 					}]
             },
 			{
@@ -20,28 +22,33 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
                 type: "img",
                 fields: [{
 						description: "Caminho",
-						value: ""
+						value: "",
+						style: "search"
 					},
 					{
 						description: "Altura",
-						value: "200"
+						value: "200",
+						style: "default"
 					},
 					{
 						description: "Largura",
-						value: "200"
+						value: "200",
+						style: "default"
 					},
 					{
 						description: "Link",
-						value: ""
+						value: "",
+						style: "default"
 					}]
             },
             {
                 name: 'Container 1',
                 type: "container",
-				id: 4,
+				style: "default",
 				fields: [{
 						description: "Título",
-						value: ""
+						value: "",
+						style: "default"
 					}],
                 columns: [
                     []
@@ -50,10 +57,11 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
             {
                 name: 'Container 2',
                 type: "container",
-				id: 5,
+				style: "default",
 				fields: [{
 						description: "Título",
-						value: ""
+						value: "",
+						style: "default"
 					}],
                 columns: [
                     [],
@@ -63,10 +71,11 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
             {
                 name: 'Container 3',
                 type: "container",
-				id: 6,
+				style: "default",
 				fields: [{
 						description: "Título",
-						value: ""
+						value: "",
+						style: "default"
 					}],
                 columns: [
                     [],
@@ -86,7 +95,6 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 				url: 'https://beacon-mapper.herokuapp.com/GetTemplate?uid=' + $routeParams.uid,
 			}
 			$http(req).then(function(response){
-				console.log(response.data);
 				if ((response.data != 'none') && (response.data != '') && (response.data != null) && (response.data != '') && (response.data != undefined)) {
 					$scope.models = response.data;
 				} else {
@@ -120,6 +128,7 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 		}, function(){
 		});
 	};
+	$scope.title = "Maker"
 }]);
 
 angular.module("demo").controller("NestedListsControllerVis", ['$scope', '$rootScope', '$http', '$routeParams', '$interval', function ($scope, $rootScope, $http, $routeParams, $interval) {
@@ -129,7 +138,6 @@ angular.module("demo").controller("NestedListsControllerVis", ['$scope', '$rootS
 				url: 'https://beacon-mapper.herokuapp.com/GetTemplate?uid=' + $routeParams.uid,
 			}
 			$http(req).then(function(response){
-				console.log(response);
 				if ((response.data.resposta != 'none') && (response.data.resposta != '') && (response.data != null) && (response.data != '') && (response.data != undefined)) {
 					$scope.models = response.data;
 				} else {
@@ -143,6 +151,8 @@ angular.module("demo").controller("NestedListsControllerVis", ['$scope', '$rootS
 	} else {
 		$scope.models = angular.copy($rootScope.models);
 	}
+	
+	$scope.title = "routeParams.uid"
 	
 	$interval(function () {
 		var req = {
@@ -163,7 +173,6 @@ angular.module("demo").controller("NestedListsControllerTes", ['$scope', '$rootS
 				url: 'https://beacon-mapper.herokuapp.com/GetTemplate?uid=' + $routeParams.uid,
 			}
 			$http(req).then(function(response){
-				console.log(response);
 				if ((response.data.resposta != 'none') && (response.data.resposta != '') && (response.data != null) && (response.data != '') && (response.data != undefined)) {
 					$scope.models = response.data;
 				} else {
@@ -177,4 +186,6 @@ angular.module("demo").controller("NestedListsControllerTes", ['$scope', '$rootS
 	} else {
 		$scope.models = angular.copy($rootScope.models);
 	}
+	
+	$scope.title = "Test routeParams.uid"
 }]);

@@ -3,23 +3,30 @@ angular.module("demo", ["ngRoute", "dndLists"])
         $routeProvider
 			.when('/', {
                 templateUrl: '/nested/nested.html',
-                controller: 'NestedListsController'
+                controller: 'NestedListsController',
+				title: 'Page Maker'
             })
             .when('/:uid', {
                 templateUrl: '/nested/nested.html',
-                controller: 'NestedListsController'
+                controller: 'NestedListsController',
+				title: 'Page Maker'
             })
             .when('/:uid/vis/', {
                 templateUrl: '/nested/vis.html',
-                controller: 'NestedListsControllerVis'
+                controller: 'NestedListsControllerVis',
+				title: 'Page'
             })
-			.when('/:uid/tes/', {
+			.when('/:uid/test/', {
                 templateUrl: '/nested/vis.html',
-                controller: 'NestedListsControllerTes'
+                controller: 'NestedListsControllerTes',
+				title: 'Page Test'
             })
             .otherwise({
                 redirectTo: '/'
             });
-    }).run(['$rootScope', function ($rootScope) {
+    }).run(['$rootScope', '$route', '$routeParams', function ($rootScope, $route, $routeParams) {
+		$rootScope.$on('$routeChangeSuccess', function() {
+			document.title = $route.current.title + ' ' + $routeParams.uid;
+		});
         $rootScope.models =  {};
     }]);

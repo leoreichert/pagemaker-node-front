@@ -29,9 +29,7 @@
     </script>
 	
 	<script type="text/ng-template" id="img.html">
-		<a href="{{item.fields[3].value}}">
-			<img src="{{item.fields[0].value}}" height="{{item.fields[1].value}}" width="{{item.fields[2].value}}">
-		</a>
+		<img src="{{item.fields[0].value}}" height="{{item.fields[1].value}}" width="{{item.fields[2].value}}">
     </script>
 
     <div class="col s2">
@@ -70,14 +68,17 @@
 				<form class="col s12">	
 					<div class="row">			
 						<div ng-repeat="campo in models.selected.fields" class="col s12">
-							<div class="input-field col s12">
-								<input id={{campo.description}} value={{campo.value}} type="text" class="form-control" ng-model="models.selected.fields[$index].value" >
-								<label for={{campo.description}}>{{campo.description}}</label>
+							<div ng-switch on="campo.style">
+								<div ng-switch-when="search">
+									<h1>AGORA FOI!</h1>
+								</div>
+								<div ng-switch-default>
+									<div class="input-field col s12">
+										<input id={{campo.description}} value={{campo.value}} type="text" class="form-control" ng-model="models.selected.fields[$index].value" >
+										<label for={{campo.description}}>{{campo.description}}</label>
+									</div>
+								</div>
 							</div>
-						</div>	
-					
-						<div ng-switch="models.selected.type">
-							<div ng-switch-casa=""></div>
 						</div>
 					</div>	
 				</form>
