@@ -9,36 +9,42 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 				fields: [{
 						description: "Texto",
 						value: "Texto Inicial",
-						style: "default"
+						style: "default",
+						visible: true
 					},
 					{
 						description: "Tamanho",
 						value: "10",
-						style: "default"
+						style: "default",
+						visible: true
 					}]
             },
 			{
                 name: 'Imagem',
                 type: "img",
                 fields: [{
-						description: "Caminho",
+						description: "Arquivo",
 						value: "",
-						style: "search"
+						style: "search",
+						visible: true
 					},
 					{
 						description: "Altura",
 						value: "200",
-						style: "default"
+						style: "default",
+						visible: true
 					},
 					{
 						description: "Largura",
 						value: "200",
-						style: "default"
+						style: "default",
+						visible: true
 					},
 					{
 						description: "Link",
 						value: "",
-						style: "default"
+						style: "default",
+						visible: true
 					}]
             },
             {
@@ -48,7 +54,8 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 				fields: [{
 						description: "Título",
 						value: "",
-						style: "default"
+						style: "default",
+						visible: true
 					}],
                 columns: [
                     []
@@ -61,7 +68,8 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 				fields: [{
 						description: "Título",
 						value: "",
-						style: "default"
+						style: "default",
+						visible: true
 					}],
                 columns: [
                     [],
@@ -75,7 +83,8 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 				fields: [{
 						description: "Título",
 						value: "",
-						style: "default"
+						style: "default",
+						visible: true
 					}],
                 columns: [
                     [],
@@ -128,6 +137,20 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
 		}, function(){
 		});
 	};
+	
+	$scope.carregarBase64 = function () {
+		var tmppath = event.target.files[0];
+		var reader = new FileReader();
+		reader.readAsDataURL(tmppath);
+		reader.onload = function () {
+			console.log(reader.result);
+			$scope.models.selected.fields[0].value = reader.result;
+		};
+		reader.onerror = function (error) {
+			console.log('Error: ', error);
+		};
+	};
+	
 	$scope.title = "Maker"
 }]);
 

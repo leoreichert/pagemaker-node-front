@@ -37,10 +37,6 @@
 			<div class="col s12">
 				<button type="button" class="btn btn-success col s12 margem" ng-click="salvar()">Salvar</button>	
 			</div>
-			<div class="col s12">						
-				<a href="#/{{models.uid}}/vis/" class="btn btn-danger col s12 margem">Visualizar</a>
-			</div>
-
 		</div>
         <div class="row listaelementos">
 			<div ng-repeat="item in models.templates" dnd-draggable="item" dnd-effect-allowed="copy" dnd-copied="item.id = item.id + 1" class="col s12 margem">
@@ -68,14 +64,17 @@
 				<form class="col s12">	
 					<div class="row">			
 						<div ng-repeat="campo in models.selected.fields" class="col s12">
-							<div ng-switch on="campo.style">
-								<div ng-switch-when="search">
-									<h1>AGORA FOI!</h1>
-								</div>
-								<div ng-switch-default>
-									<div class="input-field col s12">
-										<input id={{campo.description}} value={{campo.value}} type="text" class="form-control" ng-model="models.selected.fields[$index].value" >
+							<div ng-if="campo.visible">
+								<div ng-switch on="campo.style">
+									<div ng-switch-when="search">
 										<label for={{campo.description}}>{{campo.description}}</label>
+										<input id={{campo.description}} type="file" class="form-control" accept="image/*" onchange="angular.element(this).scope().carregarBase64(event)">
+									</div>
+									<div ng-switch-default>
+										<div class="input-field col s12">
+											<input id={{campo.description}} value={{campo.value}} type="text" class="form-control" ng-model="models.selected.fields[$index].value" >
+											<label for={{campo.description}} class="active">{{campo.description}}</label>
+										</div>
 									</div>
 								</div>
 							</div>
