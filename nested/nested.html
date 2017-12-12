@@ -17,7 +17,7 @@
      the above list template to render each container column -->
     <script type="text/ng-template" id="container.html">
         <div class="container box box-blue">
-            <h3 ng-hide="item.id == ''">{{item.id}}</h3>
+            <h3 ng-hide="item.id == ''">{{item.fields[0].value}}</h3>
             <div class="column{{item.columns.length}}" ng-repeat="list in item.columns" ng-include="'list.html'"></div>
             <div class="clearfix"></div>
         </div>

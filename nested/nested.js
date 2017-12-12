@@ -50,7 +50,6 @@ angular.module("demo").controller("NestedListsController", ['$scope', '$rootScop
             {
                 name: 'Container 1',
                 type: "container",
-				style: "default",
 				fields: [{
 						description: "Título",
 						value: "",
